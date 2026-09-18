@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Tagesschrift&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+}
+body {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #1c2530;
+    font-family: "Oswald", sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+}
+header {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+.mode-select {
+    background-color: #b9c4cf;
+    color: #1c2530;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    padding: 8px 30px 8px 12px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231c2530' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 14px;
+    height: 48px;
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+}
+.mode-select:hover {
+    background-color: #a3b0bd;
+}
+.mode-select option {
+    background-color: #2a3441;
+    color: #c7cdd4;
+}
+.turn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2a3441;
+    padding: 8px 12px;
+    border-radius: 10px;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+    height: 48px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.turn-icon {
+    color: #c7cdd4;
+    font-size: 20px;
+    font-weight: bold;
+}
+.turn-text {
+    color: #c7cdd4;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+.reset {
+    background-color: #b9c4cf;
+    border: none;
+    border-radius: 10px;
+    height: 48px;
+    width: 100% !important; 
+    max-width: none;
+    color: #1c2530;
+    cursor: pointer;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+.reset:hover {
+    background-color: #a3b0bd;
+}
+.reset img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+main {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    width: 100%;
+    max-height: calc(100dvh - 160px);
+    aspect-ratio: 1 / 1;
+    margin: auto 0;
+}
+main div {
+    background-color: #2a3441;
+    border-radius: 12px;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    color: #c7cdd4;
+    cursor: pointer;
+}
+main div:hover {
+    background-color: #323f4e;
+}
+footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+}
+.score {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 12px;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+}
+.score-label {
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #1c2530;
+    opacity: 0.8;
+}
+.score-value {
+    font-size: 20px;
+    font-weight: bold;
+    color: #1c2530;
+}
+.score-x {
+    background-color: #F0997B;
+}
+.score-ties {
+    background-color: #b9c4cf;
+}
+.score-o {
+    background-color: #5DCAA5;
+}
+@media (min-width: 600px) {
+    body {
+        max-width: 550px;
+        padding: 25px;
+    }
+    main {
+        gap: 15px;
+        max-height: calc(100dvh - 190px);
+    }
+    .mode-select, .reset, .turn {
+        height: 52px;
+    }
+
+    .mode-select {
+        font-size: 16px;
+        max-width: 160px;
+    }
+    .turn-text {
+        font-size: 20px;
+    }
+    .reset {
+        width: 52px;
+    }
+    main div {
+        font-size: 44px;
+        border-radius: 15px;
+    }
+    .score {
+        padding: 12px;
+        border-radius: 15px;
+    }
+    .score-label {
+        font-size: 16px;
+    }
+    .score-value {
+        font-size: 24px;
+    }
+}

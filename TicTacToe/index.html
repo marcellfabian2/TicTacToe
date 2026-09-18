@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-tac-toe</title>
+    <link rel="icon" type="image/x-icon" href="Images/tic-tac-toe.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <select class="mode-select">
+            <option value="1player">1 játékos</option>
+            <option value="2player">2 játékos</option>
+        </select>
+        <div class="turn">
+            <span class="turn-icon"></span>
+            <span class="turn-text">KÖVETKEZIK</span>
+        </div>
+        <button class="reset">
+            <img src="Images/undo.png" alt="Reset">
+        </button>
+    </header>
+    <main>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </main>
+    <footer>
+        <div class="score score-x">
+            <span class="score-label">X</span>
+            <span class="score-value">0</span>
+        </div>
+        <div class="score score-ties">
+            <span class="score-label">Döntetlen</span>
+            <span class="score-value">0</span>
+        </div>
+        <div class="score score-o">
+            <span class="score-label">O</span>
+            <span class="score-value">0</span>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
