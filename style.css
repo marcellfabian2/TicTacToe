@@ -261,7 +261,7 @@ footer {
      background-color: #a3b0bd; 
 }
 .btn-next{
-    background-color: var(--o-color);
+    background-color: #a3b0bd;
     color: #1c2530;
 }
 .btn-next:hover{ filter: brightness(0.95); }

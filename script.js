@@ -127,7 +127,7 @@ function showWinOverlay(result){
     } else {
         winIcon.style.display = "inline-block";
         winIcon.classList.add(result === "X" ? "icon-x" : "icon-o");
-        winWho.textContent = result + " NYERI A KÖRT";
+        winWho.textContent = "NYERTE A KÖRT";
         winLabel.textContent = mode === "1player"
             ? (result === "X" ? "NYERTÉL!" : "A GÉP NYERT!")
             : "JÁTÉK VÉGE";
