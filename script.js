@@ -250,7 +250,7 @@ resetBtn.onclick = function(){
 };
 
 quitBtn.onclick = function(){
-    clearBoard();
+    fullReset();
 };
 
 nextBtn.onclick = function(){
