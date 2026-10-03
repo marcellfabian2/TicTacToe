@@ -1,3 +1,4 @@
+//Általános - adatok lekérése, mátrix, aktuális játékos és scoreboard
 let cells = document.querySelectorAll("main div");
 let modeSelect = document.querySelector(".mode-select");
 let resetBtn = document.querySelector(".reset");
@@ -13,12 +14,13 @@ let quitBtn = document.getElementById("quitBtn");
 let nextBtn = document.getElementById("nextBtn"); 
 
 let matrix = [];
-let coords = [];
+let coords = []; //tmp tömb az indexekhez
 let currentPlayer = "X";
 let mode = modeSelect.value;
 let gameOver = false;
 let scores = { X: 0, O: 0, ties: 0 };
 
+//Mátrix inicializálása
 function Matrix(){
     matrix = [];
     coords = [];
@@ -36,17 +38,19 @@ function Matrix(){
     }
 }
 
+//Ki következik?
 function updateTurnIndicator(){
     turnIcon.classList.remove("icon-x", "icon-o");
     turnIcon.classList.add(currentPlayer === "X" ? "icon-x" : "icon-o");
 }
 
+//Tábla betöltése/megjelenítése --> ha van X vagy O akkor megjeleníti a HTML-ben
 function renderBoard(){
-    for(let k = 0; k < cells.length; k++){
-        let cell = cells[k];
-        let i = coords[k][0]; 
-        let j = coords[k][1]; 
-        let val = matrix[i][j]; 
+    for(let i = 0; i < cells.length; i++){
+        let cell = cells[i];
+        let j = coords[i][0]; 
+        let k = coords[i][1]; 
+        let val = matrix[j][k]; 
 
         cell.innerHTML = ""; 
 
@@ -58,33 +62,36 @@ function renderBoard(){
     }
 }
 
+//Scoarboard frissítése
 function updateScoreboard(){
     scoreX.textContent = scores.X;
     scoreO.textContent = scores.O;
     scoreTies.textContent = scores.ties;
 }
 
-
+//A nyerő cellák kiemelése
 function highlightWinningCells(combo, winner){
     if(!combo) return;
 
-    for(let n = 0; n < combo.length; n++){
-        let i = combo[n][0];
-        let j = combo[n][1];
-        let k = i * 3 + j; 
-        cells[k].classList.add("cell-win", winner === "X" ? "win-x" : "win-o");
+    for(let i = 0; i < combo.length; i++){
+        let j = combo[i][0];
+        let k = combo[i][1];
+        let h = j * 3 + k; 
+        cells[h].classList.add("cell-win", winner === "X" ? "win-x" : "win-o");
     }
 }
+
+//Győzelmi lehetőségek
 function getWinResult(m){
-    let lines = [
-        [[0,0],[0,1],[0,2]], 
-        [[1,0],[1,1],[1,2]], 
-        [[2,0],[2,1],[2,2]], 
-        [[0,0],[1,0],[2,0]],
-        [[0,1],[1,1],[2,1]],
-        [[0,2],[1,2],[2,2]],
-        [[0,0],[1,1],[2,2]],
-        [[0,2],[1,1],[2,0]],
+    let lines = [  //nyerési lehetőségek
+        [[0,0],[0,1],[0,2]], //v
+        [[1,0],[1,1],[1,2]], //v
+        [[2,0],[2,1],[2,2]], //v
+        [[0,0],[1,0],[2,0]], //f
+        [[0,1],[1,1],[2,1]], //f
+        [[0,2],[1,2],[2,2]], //f
+        [[0,0],[1,1],[2,2]], //á
+        [[0,2],[1,1],[2,0]], //á
     ];
 
     for(let l = 0; l < lines.length; l++){
@@ -112,10 +119,12 @@ function getWinResult(m){
     return null;
 }
 
+//Győztes ellenőrzése a valós mátrixxal
 function checkWinner(){
     return getWinResult(matrix);
 }
 
+//Win overlay megjelenítése
 function showWinOverlay(result){
     winOverlay.classList.add("active");
     winIcon.classList.remove("icon-x", "icon-o");
@@ -128,15 +137,16 @@ function showWinOverlay(result){
         winIcon.style.display = "inline-block";
         winIcon.classList.add(result === "X" ? "icon-x" : "icon-o");
         winWho.textContent = "NYERTE A KÖRT";
-        winLabel.textContent = mode === "1player"
-            ? (result === "X" ? "NYERTÉL!" : "A GÉP NYERT!")
-            : "JÁTÉK VÉGE";
+        winLabel.textContent = mode === "1player" ? (result === "X" ? "NYERTÉL!" : "A GÉP NYERT!") : "JÁTÉK VÉGE";
     }
 }
+
+//Win overlay eltűntetése
 function hideWinOverlay(){
     winOverlay.classList.remove("active");
 }
 
+//Kör vége
 function endRound(result, combo){
     gameOver = true; 
 
@@ -146,11 +156,13 @@ function endRound(result, combo){
         scores[result]++;
     }
 
+    //Frissítjük a scoarboardot, kiemeljük a győztes cellákat és a win overlayt is megjelenítjük
     updateScoreboard();               
     highlightWinningCells(combo, result);
     showWinOverlay(result);
 }
 
+//A lépések figyelése --> játékmenet
 function handleMove(k){
     if(gameOver) return; 
 
@@ -172,10 +184,11 @@ function handleMove(k){
     updateTurnIndicator();
 
     if(mode === "1player" && currentPlayer === "O"){
-        setTimeout(cpuMove, 400);
+        setTimeout(cpuMove, 200); //CPU késleltetése
     }
 }
 
+//Gép elleni játék esetén ha a játékos azonnal nyer akkor visszatér az adott mező indexével
 function findWinningMove(player){
     for(let i = 0; i < 3; i++){
         for(let j = 0; j < 3; j++){
@@ -192,6 +205,7 @@ function findWinningMove(player){
     return null; 
 }
 
+//Gép lépése - 3 lehetőség: 1. gép tud nyerni egy lépésből --> 2. ha nem akkor játékos tud nyerni egy lépésből --> 3. ha nem akkor random rak
 function cpuMove(){
     if(gameOver) return;
     let choice = findWinningMove("O");
@@ -213,9 +227,10 @@ function cpuMove(){
 
         choice = empty[Math.floor(Math.random() * empty.length)];
     }
-    handleMove(choice);
+    handleMove(choice); //végrehajtás
 }
 
+//Tábla tisztítása --> reset
 function clearBoard(){
     Matrix();         
     currentPlayer = "X";   
@@ -229,12 +244,14 @@ function clearBoard(){
     }
 }
 
+//Minden alaphelyzetbe állítása
 function fullReset(){
     scores = { X: 0, O: 0, ties: 0 };
     updateScoreboard();
     clearBoard();
 }
 
+//Műveletek kezelése a függvényekkel
 function onCellClick(k){
     handleMove(k);
 }
@@ -262,6 +279,7 @@ modeSelect.onchange = function(){
     fullReset();
 };
 
+//Játék inicializálása
 Matrix();
 updateTurnIndicator();
 updateScoreboard();    
